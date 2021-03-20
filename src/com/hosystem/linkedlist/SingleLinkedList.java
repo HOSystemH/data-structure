@@ -9,6 +9,11 @@ public class SingleLinkedList {
     //先初始化一个头结点 头结点不动,不存放具体的数据 否则后面可能找不到
     private HeroNode head = new HeroNode(0, "", "");
 
+    //返回头结点
+    public HeroNode getHead() {
+        return head;
+    }
+
     /**
      * 方法1：添加节点到单向链表
      * 思路:不考虑节点顺序时

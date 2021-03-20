@@ -37,7 +37,7 @@ public class SingleLinkedListDemo {
         System.out.println();
         System.out.println("--------------------修改后的信息--------------------");
         //测试修改节点
-        HeroNode newHeroNode = new HeroNode(3,"hello","hello");
+        HeroNode newHeroNode = new HeroNode(3, "hello", "hello");
         singleLinkedList.update(newHeroNode);
         //3.输出链表
         singleLinkedList.list();
@@ -47,6 +47,67 @@ public class SingleLinkedListDemo {
         singleLinkedList.delNode(1);
         //3.输出链表
         singleLinkedList.list();
+
+        //测试 求单链表中有效节点个数
+        System.out.println("有效节点个数: " + getLength(singleLinkedList.getHead()));
+
+        //测试 得到倒数第K个节点
+        HeroNode res = findLastIndexNode(singleLinkedList.getHead(), 2);
+        System.out.println("倒数节点信息:" + res);
+
+    }
+
+    /**
+     * 查找单链表中的倒数第K个节点
+     * 思路:
+     * 1.编写一个方法 接收head节点,同时接收一个index
+     * 2.index表示 倒数第index个节点
+     * 3.首先遍历链表(从头到尾) 得到链表总长度 size
+     * 4. 得到size后 从链表的第一个开始遍历（size-index)个 便可得到倒数第K个节点
+     * 5.找到 返回该节点。否则返回null
+     */
+    public static HeroNode findLastIndexNode(HeroNode head, int index) {
+        //判断如果链表为空 返回null
+        if (head.next == null) {
+            return null;
+        }
+        //第一次遍历得到链表的长度(节点个数)
+        int size = getLength(head);
+
+        //第二次遍历 size-index 位置 为倒数第K个节点 即 K = size-index
+        //先做一个index的校验
+        if (index <= 0 || index > size) {
+            return null;
+        }
+        //定义辅助变量cur 使用for循环定位到倒数index
+        HeroNode cur = head.next;
+        for (int i = 0; i < size - index; i++) {
+            cur = cur.next;
+        }
+        return cur;
+    }
+
+    /**
+     * 获取单链表节点的个数(若带头结点的链表,需要不统计头结点)
+     *
+     * @param head 链表的头节点
+     * @return 返回的就是有效节点的个数
+     */
+    public static int getLength(HeroNode head) {
+
+        if (head.next == null) {
+            return 0;
+        }
+
+        int length = 0;
+        //定义一个辅助变量cur
+        HeroNode cur = head.next;
+
+        while (cur != null) {
+            length++;
+            cur = cur.next;
+        }
+        return length;
     }
 }
 
