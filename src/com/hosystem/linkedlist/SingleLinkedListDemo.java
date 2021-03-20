@@ -16,12 +16,22 @@ public class SingleLinkedListDemo {
         /**
          *  第一种方法在添加英雄时，直接添加到链表的尾部
          *  问题：插入的HeroNode的顺序决定了取出的顺序
-         *  TODO 解决插入时HeroNode是排好顺序的
+         *  TODO 解决插入时HeroNode直接是排好顺序的问题
          */
-        singleLinkedList.add(heroNode1);
-        singleLinkedList.add(heroNode2);
-        singleLinkedList.add(heroNode3);
-        singleLinkedList.add(heroNode4);
+//        singleLinkedList.add(heroNode1);
+//        singleLinkedList.add(heroNode2);
+//        singleLinkedList.add(heroNode3);
+//        singleLinkedList.add(heroNode4);
+
+        /**
+         *  添加 按照编号顺序
+         */
+        singleLinkedList.addByOrder(heroNode1);
+        singleLinkedList.addByOrder(heroNode3);
+        singleLinkedList.addByOrder(heroNode2);
+        singleLinkedList.addByOrder(heroNode2);
+        singleLinkedList.addByOrder(heroNode4);
+
 
         //3.输出链表
         singleLinkedList.list();

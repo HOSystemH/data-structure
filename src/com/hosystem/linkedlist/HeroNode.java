@@ -1,10 +1,10 @@
 package com.hosystem.linkedlist;
-
-public
 /**
  *  定义HeroNode 每个HerNode对象就是一个节点
  */
-class HeroNode{
+
+public class HeroNode{
+
     /**
      *  no:编号
      *  name:名字
