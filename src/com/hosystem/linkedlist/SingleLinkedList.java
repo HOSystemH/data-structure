@@ -136,4 +136,32 @@ public class SingleLinkedList {
             System.out.println("没有找到该编号"+heroNode.no+"的英雄");
         }
     }
+
+    //删除节点
+    //思路:head 不能动，因此我们需要一个 temp 辅助节点找到待删除节点的前一个节点
+    //在比较时，是 temp.next.no 和 需要删除的节点的 no 比较
+
+    public void delNode(int no){
+        HeroNode temp = head;
+        boolean flag = false;
+        while(true){
+            //到达末尾未找到节点
+            if(temp.next == null){
+                break;
+            }
+            //找到待删除节点的前一个节点temp
+            if(temp.next.no == no){
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        //判断flag
+        if(flag){
+            //可以删除
+            temp.next = temp.next.next;
+        }else{
+            System.out.println("没有找到需要删除的节点");
+        }
+    }
 }

@@ -33,14 +33,18 @@ public class SingleLinkedListDemo {
 
         //3.输出链表
         singleLinkedList.list();
+
         System.out.println();
         System.out.println("--------------------修改后的信息--------------------");
         //测试修改节点
         HeroNode newHeroNode = new HeroNode(3,"hello","hello");
         singleLinkedList.update(newHeroNode);
+        //3.输出链表
+        singleLinkedList.list();
 
-
-
+        System.out.println();
+        System.out.println("--------------------删除后的信息--------------------");
+        singleLinkedList.delNode(1);
         //3.输出链表
         singleLinkedList.list();
     }
