@@ -24,13 +24,21 @@ public class SingleLinkedListDemo {
 //        singleLinkedList.add(heroNode4);
 
         /**
-         *  添加 按照编号顺序
+         *  第二种方法 添加 按照编号顺序
          */
         singleLinkedList.addByOrder(heroNode1);
         singleLinkedList.addByOrder(heroNode3);
         singleLinkedList.addByOrder(heroNode2);
-        singleLinkedList.addByOrder(heroNode2);
         singleLinkedList.addByOrder(heroNode4);
+
+        //3.输出链表
+        singleLinkedList.list();
+        System.out.println();
+        System.out.println("--------------------修改后的信息--------------------");
+        //测试修改节点
+        HeroNode newHeroNode = new HeroNode(3,"hello","hello");
+        singleLinkedList.update(newHeroNode);
+
 
 
         //3.输出链表

@@ -98,4 +98,42 @@ public class SingleLinkedList {
             temp.next = heroNode;
         }
     }
+
+
+
+    /**
+     *  修改节点信息 根据no编号修改
+     *  思路:根据HeroNode的no来修改
+     * @param heroNode
+     */
+    public void update(HeroNode heroNode){
+        //判断是否空
+        if(head.next==null){
+            System.out.println("链表为空");
+            return;
+        }
+        //找到需要修改的节点 根据no编号
+        //使用辅助变量temp
+        HeroNode temp = head.next;
+        boolean flag = false;
+        while (true){
+            //到达最后一个节点
+            if(temp==null){
+                break;
+            }
+            if(temp.no == heroNode.no){
+                //找到
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        //根据flag 判断是否找到要修改的节点
+        if(flag){
+            temp.name = heroNode.name;
+            temp.nickname = heroNode.nickname;
+        }else{
+            System.out.println("没有找到该编号"+heroNode.no+"的英雄");
+        }
+    }
 }
