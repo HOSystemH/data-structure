@@ -31,30 +31,67 @@ public class SingleLinkedListDemo {
         singleLinkedList.addByOrder(heroNode2);
         singleLinkedList.addByOrder(heroNode4);
 
-        //3.输出链表
-        singleLinkedList.list();
+//        //3.输出链表
+//        singleLinkedList.list();
+//
+//        System.out.println();
+//        System.out.println("--------------------修改后的信息--------------------");
+//        //测试修改节点
+//        HeroNode newHeroNode = new HeroNode(3, "hello", "hello");
+//        singleLinkedList.update(newHeroNode);
+//        //3.输出链表
+//        singleLinkedList.list();
+//
+//        System.out.println();
+//        System.out.println("--------------------删除后的信息--------------------");
+//        singleLinkedList.delNode(1);
+//        //3.输出链表
+//        singleLinkedList.list();
+//
+//        //测试 求单链表中有效节点个数
+//        System.out.println("有效节点个数: " + getLength(singleLinkedList.getHead()));
+//
+//        //测试 得到倒数第K个节点
+//        HeroNode res = findLastIndexNode(singleLinkedList.getHead(), 2);
+//        System.out.println("倒数节点信息:" + res);
 
+        //测试 单链表反转
         System.out.println();
-        System.out.println("--------------------修改后的信息--------------------");
-        //测试修改节点
-        HeroNode newHeroNode = new HeroNode(3, "hello", "hello");
-        singleLinkedList.update(newHeroNode);
-        //3.输出链表
+        System.out.println("--------------------------未反转链表--------------------------");
         singleLinkedList.list();
-
         System.out.println();
-        System.out.println("--------------------删除后的信息--------------------");
-        singleLinkedList.delNode(1);
-        //3.输出链表
+        System.out.println("--------------------------反转链表--------------------------");
+        reversetList(singleLinkedList.getHead());
         singleLinkedList.list();
+    }
 
-        //测试 求单链表中有效节点个数
-        System.out.println("有效节点个数: " + getLength(singleLinkedList.getHead()));
 
-        //测试 得到倒数第K个节点
-        HeroNode res = findLastIndexNode(singleLinkedList.getHead(), 2);
-        System.out.println("倒数节点信息:" + res);
+    /**
+     * 单链表反转
+     */
+    public static void reversetList(HeroNode head) {
+        //若当前链表为空 或者只有一个节点 无需反转 直接返回
+        if (head.next == null || head.next.next == null) {
+            return;
+        }
 
+        //定义辅助指针(变量) 帮助遍历原来链表
+        HeroNode cur = head.next;
+        //指向当前节点[cur]的下一个节点
+        HeroNode next = null;
+        HeroNode reverseHead = new HeroNode(0, "", "");
+
+        //遍历原来链表
+        //每遍历一个节点 将其取出 并放在新的链表reverseHead的最前端
+        while (cur != null) {
+            next = cur.next;    //暂时保存当前节点的下一个节点
+            cur.next = reverseHead.next;    //将cur的下一个节点指向新的链表的最前端
+            reverseHead.next = cur; //将cur 连接到新的链表上
+            cur = next; //让cur后移
+        }
+
+        //将head.next 指向reverseHead.next 实现单链表反转
+        head.next = reverseHead.next;
     }
 
     /**
