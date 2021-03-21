@@ -1,5 +1,7 @@
 package com.hosystem.linkedlist;
 
+import java.util.Stack;
+
 public class SingleLinkedListDemo {
     public static void main(String[] args) {
 
@@ -55,14 +57,49 @@ public class SingleLinkedListDemo {
 //        HeroNode res = findLastIndexNode(singleLinkedList.getHead(), 2);
 //        System.out.println("倒数节点信息:" + res);
 
-        //测试 单链表反转
-        System.out.println();
+//        //测试 单链表反转
+//        System.out.println();
+//        System.out.println("--------------------------未反转链表--------------------------");
+//        singleLinkedList.list();
+//        System.out.println();
+//        System.out.println("--------------------------反转链表--------------------------");
+//        reversetList(singleLinkedList.getHead());
+//        singleLinkedList.list();
+
+
         System.out.println("--------------------------未反转链表--------------------------");
         singleLinkedList.list();
-        System.out.println();
-        System.out.println("--------------------------反转链表--------------------------");
-        reversetList(singleLinkedList.getHead());
-        singleLinkedList.list();
+
+        //        System.out.println("--------------------------反转链表--------------------------");
+        // 单链表反转输出 要求不改变链表结构
+        reversePrint(singleLinkedList.getHead());
+    }
+
+
+    /**
+     *  从尾到头打印单链表(倒序打印链表)
+     *  方法:
+     *      (1).反向遍历[会改变链表的结构] 不推荐使用
+     *      (2).使用stack栈特性 [先进后出] 推荐使用 不改变链表结构
+     */
+    public static void reversePrint(HeroNode heroNode){
+        if(heroNode.next == null){
+            return;
+        }
+        //创建一个栈 将各个节点压入栈
+        Stack<HeroNode> stack = new Stack<HeroNode>();
+        HeroNode cur = heroNode.next;
+
+        //入栈
+        while (cur != null) {
+           stack.push(cur);
+           cur = cur.next;
+        }
+
+        //出栈
+        while (stack.size() > 0){
+            System.out.println(stack.pop());
+        }
     }
 
 
