@@ -24,6 +24,7 @@ public class CircleSingleLinkedList {
         for (int i = 1; i <= nums; i++) {
             //根据编号 创建节点
             Josepfu josepfuNode = new Josepfu(i);
+
             //若为第一个节点Node
             if (i == 1) {
                 first = josepfuNode;
