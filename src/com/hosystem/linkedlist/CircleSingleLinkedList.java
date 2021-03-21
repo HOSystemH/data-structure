@@ -10,6 +10,7 @@ public class CircleSingleLinkedList {
 
     //添加节点 构建成一个环形链表
     public void addNode(int nums) {
+
         //nums 校验 若nums< 2 则直接返回null
         if (nums < 2) {
             System.out.println("输入的值不正确 请重新输入");
