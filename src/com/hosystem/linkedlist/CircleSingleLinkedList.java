@@ -60,4 +60,54 @@ public class CircleSingleLinkedList {
             cur = cur.getNext();
         }
     }
+
+    /**
+     * 根据用户的输入 计算节点移除的顺序
+     *
+     * @param startNo  表示从第几个节点开始计数
+     * @param countNum 表示计数多少
+     * @param nums     表示最初由几个节点还在链表中
+     */
+    public void countCur(int startNo, int countNum, int nums) {
+
+        //校验
+        if (first == null || startNo < 1 || startNo > nums) {
+            System.out.println("输入有错 请重新输入");
+            return;
+        }
+
+        //创建辅助指针 用于链表节点移除
+        //创建一个辅助指针(变量) helper , 事先应该指向循环链表最后的节点
+        Josepfu helper = first;
+        while (true) {
+
+            //说明helper指向最后小孩节点
+            if (helper.getNext() == first) {
+                break;
+            }
+            helper = helper.getNext();
+        }
+        for (int j = 0; j < startNo - 1; j++) {
+            first = first.getNext();
+            helper = helper.getNext();
+        }
+
+        //循环操作 直到链表只有一个节点
+        while (true) {
+            //helper == first 时 链表只有一个节点
+            if (helper == first) {
+                break;
+            }
+            //节点移除前 先让 first 和  helper 移动 k - 1次
+            for (int j = 0; j < countNum - 1; j++) {
+                first = first.getNext();
+                helper = helper.getNext();
+            }
+            System.out.println("节点 `" + first.getNo() + "` 移除循环链表");
+            //将first指向的节点移除
+            first = first.getNext();
+            helper.setNext(first);
+        }
+        System.out.println("存在链表的节点为: " + first.getNo());
+    }
 }
