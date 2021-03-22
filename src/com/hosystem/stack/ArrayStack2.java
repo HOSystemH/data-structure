@@ -5,6 +5,7 @@ package com.hosystem.stack;
  */
 public class ArrayStack2 {
 
+
     /**
      * maxSize:栈的大小
      * stack:数组 用于模拟栈 数据存放在该数组

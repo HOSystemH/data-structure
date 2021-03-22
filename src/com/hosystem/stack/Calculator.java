@@ -100,6 +100,7 @@ public class Calculator {
             numStack.push(res);//入栈
         }
 
+
         //将数栈的最后数 pop
         int res2 = numStack.pop();
         System.out.println("表达式: " + expression + "结果是:" + res2);
