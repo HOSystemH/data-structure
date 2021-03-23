@@ -8,38 +8,55 @@ public class PolandNotation {
 
     public static void main(String[] args) {
 
-        /**
-         *  测试逆波兰计算器
-         *  定义逆波兰表达式
-         *  中缀表达式:(3+4)*5-6 -> 后缀表达式(逆波兰表达式)3 4 + 5 * 6 - => 29
-         */
-        //为了方便 你波兰表达式的数字和符号使用`空格`隔开
-        String suffixExpression = "3 4 + 5 * 6 -";
+//        /**
+//         *  测试逆波兰计算器
+//         *  定义逆波兰表达式
+//         *  中缀表达式:(3+4)*5-6 -> 后缀表达式(逆波兰表达式)3 4 + 5 * 6 - => 29
+//         */
+//        //为了方便 你波兰表达式的数字和符号使用`空格`隔开
+//        String suffixExpression = "3 4 + 5 * 6 -";
+//
+//        /**
+//         *  思路:
+//         *      1.先将"3 4 + 5 * 6 -" 放到ArrayList中
+//         *      2.将ArrayList 传递给方法 遍历ArrayList配合栈完成计算
+//         */
+//        List<String> rpnList = getListString(suffixExpression);
+//        System.out.println("rpnList: " + rpnList);
+//
+//        int res = calculate(rpnList);
+//        System.out.println("计算的结果是: " + res);
+//
+//        //测试 多位数
+//        //中缀表达式:(30+4)*5-6 -> 后缀表达式(逆波兰表达式)3 4 + 5 * 6 - => 164
+//        String suffixExpression2 = "30 4 + 5 * 6 -";
+//        List<String> rpnList2 = getListString(suffixExpression2);
+//        int res2 = calculate(rpnList2);
+//        System.out.println("计算的结果是: " + res2);
+//
+//        //测试 多位数
+//        //中缀表达式: 4 * 5 - 8 + 60 + 8 / 2 -> 后缀表达式(逆波兰表达式)4 5 * 8 - 60 + 8 2 / +
+//        String suffixExpression3 = "4 5 * 8 - 60 + 8 2 / +";
+//        List<String> rpnList3 = getListString(suffixExpression3);
+//        int res3 = calculate(rpnList3);
+//        System.out.println("计算的结果是: " + res3);
 
         /**
-         *  思路:
-         *      1.先将"3 4 + 5 * 6 -" 放到ArrayList中
-         *      2.将ArrayList 传递给方法 遍历ArrayList配合栈完成计算
+         *  完成 中缀表达式 转 后缀表达式
+         *  1. "1+((2+3)×4)-5"转  换为后缀表达式 "1 2 3 + 4 × + 5 –"
+         *  2. 因为对str进行操作 先将"1+((2+3)×4)-5" 转为 中缀表达式对应的list 即 "1+((2+3)×4)-5" => ArrList[1,+,(,(,2,+,3,),×,4,),-,5]
+         *  3. 将得到的中缀表达式list -> 后缀表达式list
+         *      即ArrayList[1, +, (, (, 2, +, 3, ), *, 4, ), -, 5] => ArrayList[1,2,3,+,4,×,+,5,–]
          */
-        List<String> rpnList = getListString(suffixExpression);
-        System.out.println("rpnList: " + rpnList);
+        String expression = "1+((2+3)*4)-5";
+        List<String> infixExpressionList = toInfixExpressionList(expression);
+        //[1, +, (, (, 2, +, 3, ), *, 4, ), -, 5]
+        System.out.println("中缀表达式: " + infixExpressionList);
+        List<String> suffixExpressionList = parseSuffixExpressionList(infixExpressionList);
+        System.out.println("后缀表达式: " + suffixExpressionList);
 
-        int res = calculate(rpnList);
-        System.out.println("计算的结果是: "+ res);
+        System.out.println("expression:"+calculate(suffixExpressionList));
 
-        //测试 多位数
-        //中缀表达式:(30+4)*5-6 -> 后缀表达式(逆波兰表达式)3 4 + 5 * 6 - => 164
-        String suffixExpression2 = "30 4 + 5 * 6 -";
-        List<String> rpnList2 = getListString(suffixExpression2);
-        int res2 = calculate(rpnList2);
-        System.out.println("计算的结果是: "+ res2);
-
-        //测试 多位数
-        //中缀表达式: 4 * 5 - 8 + 60 + 8 / 2 -> 后缀表达式(逆波兰表达式)4 5 * 8 - 60 + 8 2 / +
-        String suffixExpression3 = "4 5 * 8 - 60 + 8 2 / +";
-        List<String> rpnList3 = getListString(suffixExpression3);
-        int res3 = calculate(rpnList3);
-        System.out.println("计算的结果是: "+ res3);
     }
 
     //将一个逆波兰表达式 依次将数据和运算符 放入到ArrayList中
@@ -100,4 +117,91 @@ public class PolandNotation {
         //最后留在stack中的数据是运算结果
         return Integer.parseInt(stack.pop());
     }
+
+    /**
+     * 将中缀表达式 转 list
+     */
+    public static List<String> toInfixExpressionList(String str) {
+        //定义一个List 存放中缀表达式对应的内容
+        List<String> list = new ArrayList<String>();
+
+        //指针 用于遍历 中缀表达式str
+        int cur = 0;
+
+        //用于对多位数的拼接
+        String strmerge = "";
+
+        //每遍历到字符 就存放到ch
+        char ch;
+        do {
+            //若ch是非数字 加入到list
+            if ((ch = str.charAt(cur)) < 48 || (ch = str.charAt(cur)) > 57) {
+                list.add("" + ch);
+                cur++;
+            } else {
+                //若ch为数字 则需要考虑多位数问题
+                strmerge = ""; //先将strmerge 赋初值""
+                while (cur < str.length() && (ch = str.charAt(cur)) >= 48 && (ch = str.charAt(cur)) <= 57) {
+                    //拼接
+                    strmerge += ch;
+                    cur++;
+                }
+                list.add(strmerge);
+            }
+        } while (cur < str.length());
+
+        //返回结果
+        return list;
+    }
+
+    /**
+     * 即ArrayList[1, +, (, (, 2, +, 3, ), *, 4, ), -, 5] => ArrayList[1,2,3,+,4,×,+,5,–]
+     * 中缀表达式list -> 后缀表达式list
+     *
+     * @param list
+     * @return
+     */
+    public static List<String> parseSuffixExpressionList(List<String> list) {
+        //定义两个栈
+        Stack<String> s1 = new Stack<String>();
+
+        //因为栈arrayList在转换过程中 没有pop操作 最后还需要逆序输出
+        //因此比较麻烦,这里不用Stack  直接使用  List<String> 替代
+        List<String> s2 = new ArrayList<String>();
+
+        //遍历list
+        for (String item : list) {
+            //若为数 加入s2
+            if (item.matches("\\d+")) {
+                s2.add(item);
+            } else if (item.equals("(")) {
+                s1.push(item);
+            } else if (item.equals(")")) {
+                //1.若为右括号 ")" 则一次弹出s1栈顶的运算符 并压入s2 知道遇到有括号")"为止 此时将`()`一堆括号丢弃
+                while (!s1.peek().equals("(")) {
+                    //将s1的值弹栈 并压入 s2中
+                    s2.add(s1.pop());
+                }
+                //2.将 `(` 弹出 消除(
+                s1.pop();
+            } else {
+                //3.当item的优先级小于栈顶运算符的优先级
+                //将s1栈顶的运算符弹出并压入到s2中，再次转到`1.`与s1中新的栈顶运算符相比较；
+                //TODO 缺少比较优先级的方法
+                while (s1.size() != 0 && Operation.getValue(s1.peek()) >= Operation.getValue(item)) {
+                    s2.add(s1.pop());
+                }
+                //将item压入栈
+                s1.push(item);
+            }
+        }
+
+        //将s1中剩余的运算符依次弹出并压入s2
+        while (s1.size() != 0) {
+            s2.add(s1.pop());
+        }
+        //存放到list 因此按顺序输出对应的就是后缀表达式对应的list
+        return s2;
+    }
+
 }
